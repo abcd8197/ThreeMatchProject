@@ -1,0 +1,6 @@
+# .editorconfig
+
+# All files
+[*]
+indent_style = space
+charset = utf-8
