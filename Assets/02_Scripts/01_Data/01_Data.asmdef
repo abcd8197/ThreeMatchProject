@@ -1,3 +1,14 @@
 {
-	"name": "01_Data"
+    "name": "01_Data",
+    "rootNamespace": "CodeJay",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

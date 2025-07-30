@@ -1,6 +1,6 @@
 using System;
 
-namespace CodeJay
+namespace CodeJay.Module
 {
     public interface IManager : IDisposable
     {

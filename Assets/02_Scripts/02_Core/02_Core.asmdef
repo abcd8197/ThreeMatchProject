@@ -1,6 +1,6 @@
 {
     "name": "02_Core",
-    "rootNamespace": "",
+    "rootNamespace": "CodeJay",
     "references": [
         "GUID:99c4a2f008dea40499bf8441fd9be5e0"
     ],

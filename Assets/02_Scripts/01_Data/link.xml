@@ -1,0 +1,6 @@
+<linker>
+    <!-- 컴파일 단계에서 코드 스트리핑 되지 않도록 추가. CodeJay.Module의 네임스페이스에 있는 모든 코드를 코드 스트리핑에서 제외-->
+    <assembly fullname="01_Data">
+        <type fullname="CodeJay.Module.*" preserve="all" />
+    </assembly>
+</linker>

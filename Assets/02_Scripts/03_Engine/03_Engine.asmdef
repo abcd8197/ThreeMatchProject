@@ -1,6 +1,6 @@
 {
     "name": "03_Engine",
-    "rootNamespace": "",
+    "rootNamespace": "CodeJay",
     "references": [
         "GUID:99c4a2f008dea40499bf8441fd9be5e0",
         "GUID:a72c98680adefe74aa9fee4e8153754c"

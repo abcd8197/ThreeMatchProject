@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CodeJay.Module;
 
 namespace CodeJay
 {
@@ -7,7 +8,7 @@ namespace CodeJay
     {
         private const string ManagerNotRegisteredError = "Manager of type \"{0}\" is not registered.";
 
-        public Main Instance => Lazy.Value;
+        public static Main Instance => Lazy.Value;
         private static readonly Lazy<Main> Lazy = new(() => new Main());
 
         private Dictionary<Type, IManager> _managers = new();
@@ -23,6 +24,8 @@ namespace CodeJay
                 throw new InvalidOperationException(string.Format(ManagerNotRegisteredError, type.Name));
 
             _managers[type] = manager;
+
+            TryRegisterModuleToRegistrar(manager);
         }
 
         public void UnregisterManager<T>() where T : IManager
@@ -36,6 +39,32 @@ namespace CodeJay
             _managers.Remove(type);
         }
 
+        private void TryRegisterModuleToRegistrar(IManager manager)
+        {
+            if (manager is not IModule module)
+                return;
+
+            foreach(var registrarEntry in _managers)
+            {
+                var registrarType = registrarEntry.Key;
+                var registrar = registrarEntry.Value;
+
+                var interfaces = registrarType.GetInterfaces();
+                foreach (var iface in interfaces)
+                {
+                    if (iface.IsGenericType && iface.GetGenericTypeDefinition() == typeof(IModuleRegistrar<>))
+                    {
+                        var moduleType = iface.GetGenericArguments()[0];
+                        if (moduleType.IsAssignableFrom(manager.GetType()))
+                        {
+                            ((IModuleRegistrar<IModule>)registrar).Register(module);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
         public T Get<T>() where T : IManager, new()
         {
             var type = typeof(T);
@@ -45,7 +74,6 @@ namespace CodeJay
 
             return (T)manager;
         }
-
 
         public void Clear()
         {
